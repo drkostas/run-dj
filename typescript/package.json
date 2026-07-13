@@ -1,15 +1,36 @@
 {
   "name": "run-dj",
-  "version": "0.1.0",
-  "description": "HR→music BPM mapping + session-aware shuffle engine (TypeScript). Pure-logic core of Soma's live DJ.",
-  "keywords": ["heart-rate", "bpm", "running", "music", "shuffle", "spotify", "garmin"],
+  "version": "0.2.0",
+  "description": "HR→music BPM + session shuffle + DJ queue-decision core (TypeScript). Pure-logic core of Soma's live DJ.",
+  "keywords": [
+    "heart-rate",
+    "bpm",
+    "running",
+    "music",
+    "shuffle",
+    "spotify",
+    "garmin"
+  ],
   "license": "MIT",
   "author": "drkostas",
-  "repository": { "type": "git", "url": "git+https://github.com/drkostas/run-dj.git", "directory": "typescript" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drkostas/run-dj.git",
+    "directory": "typescript"
+  },
   "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
-  "scripts": { "build": "tsc -p tsconfig.json", "test": "vitest run" },
-  "devDependencies": { "typescript": "^5.6.0", "vitest": "^2.1.0", "@types/node": "^22.0.0" }
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "@types/node": "^22.0.0"
+  }
 }
