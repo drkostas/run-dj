@@ -37,6 +37,28 @@ ordered = interleaved_shuffle(candidate_songs, state)
 - Partitions candidates by artist, then interleaves to maximize artist diversity.
 - Feels more random to humans than Fisher-Yates because it prevents the birthday-paradox clustering effect.
 
+## TypeScript / npm
+
+The same pure core is also published to npm (source in [`ts/`](ts/)) so it can run
+in the browser, Node, or a Vercel cron alongside Soma's TypeScript stack. The
+Python (PyPI) and TypeScript (npm) packages are kept in behavioural parity.
+
+```bash
+npm install run-dj
+```
+
+```ts
+import { hrrToBpm, SessionState, interleavedShuffle, selectSongsForSegment } from "run-dj";
+
+const bpm = hrrToBpm(125, 60, 190); // → 128
+const state = new SessionState();
+const ordered = interleavedShuffle(candidateSongs, state);
+```
+
+The TS package also exposes the segment-based playlist scorer (`bpmQuality`,
+`qualityScore`, `selectSongsForSegment`). Both packages are covered by tests in CI
+(pytest for Python, vitest for TypeScript).
+
 ## License
 
 MIT.

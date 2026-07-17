@@ -22,12 +22,24 @@
       "default": "./dist/playlist-algorithm.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "vitest run"
   },
-  "keywords": ["dj", "running", "bpm", "cadence", "playlist", "spotify", "shuffle", "soma"],
+  "keywords": [
+    "dj",
+    "running",
+    "bpm",
+    "cadence",
+    "playlist",
+    "spotify",
+    "shuffle",
+    "soma"
+  ],
   "author": "drkostas <georgiou.kostas94@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -36,6 +48,7 @@
     "directory": "ts"
   },
   "devDependencies": {
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
   }
 }
