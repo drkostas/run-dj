@@ -6,25 +6,7 @@ HR → music BPM mapping + session shuffle engine.
 
 No I/O, no database, no network. Just math and state transitions — so the same logic works in a Garmin-driven treadmill session, a Spotify playlist builder, or anything else that wants "pick the right tempo for this pulse."
 
-## Install
-
-```bash
-pip install run-dj
-```
-
-## Usage
-
-```python
-from run_dj import hrr_to_bpm, SessionState, interleaved_shuffle
-
-# HR → BPM using Karvonen %HRR (piecewise anchors + JND quantization).
-bpm = hrr_to_bpm(hr=150, hr_rest=60, hr_max=190)
-# → 132
-
-# Session-aware shuffle that avoids same-artist clustering.
-state = SessionState()
-ordered = interleaved_shuffle(candidate_songs, state)
-```
+## What it computes
 
 ### BPM formula
 - **Piecewise anchors** between 0% HRR (75 BPM) and 100% HRR (175 BPM), linearly interpolated.
@@ -37,11 +19,11 @@ ordered = interleaved_shuffle(candidate_songs, state)
 - Partitions candidates by artist, then interleaves to maximize artist diversity.
 - Feels more random to humans than Fisher-Yates because it prevents the birthday-paradox clustering effect.
 
-## TypeScript / npm
+## Install
 
-The same pure core is also published to npm (source in [`ts/`](ts/)) so it can run
+The same pure core is also published to npm (source in [`typescript/`](typescript/)) so it can run
 in the browser, Node, or a Vercel cron alongside Soma's TypeScript stack. The
-Python (PyPI) and TypeScript (npm) packages are kept in behavioural parity.
+The Python original this was ported from was removed on 2026-09-11 (git history keeps it); the npm package is the product. Its tests carry the Python-parity goldens.
 
 ```bash
 npm install run-dj

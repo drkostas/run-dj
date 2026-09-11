@@ -1,36 +1,59 @@
 {
   "name": "run-dj",
-  "version": "0.2.0",
-  "description": "HR→music BPM + session shuffle + DJ queue-decision core (TypeScript). Pure-logic core of Soma's live DJ.",
-  "keywords": [
-    "heart-rate",
-    "bpm",
-    "running",
-    "music",
-    "shuffle",
-    "spotify",
-    "garmin"
-  ],
-  "license": "MIT",
-  "author": "drkostas",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/drkostas/run-dj.git",
-    "directory": "typescript"
-  },
-  "type": "commonjs",
+  "version": "0.4.0",
+  "description": "Pure, I/O-free core of Soma's running DJ: HR-to-BPM formula, interleaved anti-clustering shuffle, segment-based playlist scoring, and the live queue decision.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./bpm-formula": {
+      "types": "./dist/bpm-formula.d.ts",
+      "default": "./dist/bpm-formula.js"
+    },
+    "./dj-shuffle": {
+      "types": "./dist/dj-shuffle.d.ts",
+      "default": "./dist/dj-shuffle.js"
+    },
+    "./playlist-algorithm": {
+      "types": "./dist/playlist-algorithm.d.ts",
+      "default": "./dist/playlist-algorithm.js"
+    },
+    "./cycle": {
+      "types": "./dist/cycle.d.ts",
+      "default": "./dist/cycle.js"
+    }
+  },
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "prepack": "npm run clean && npm run build",
     "test": "vitest run"
+  },
+  "keywords": [
+    "dj",
+    "running",
+    "bpm",
+    "cadence",
+    "playlist",
+    "spotify",
+    "shuffle",
+    "soma"
+  ],
+  "author": "drkostas <georgiou.kostas94@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drkostas/run-dj.git",
+    "directory": "typescript"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
-    "vitest": "^2.1.0",
-    "@types/node": "^22.0.0"
+    "vitest": "^2.1.0"
   }
 }
