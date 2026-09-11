@@ -6,25 +6,7 @@ HR → music BPM mapping + session shuffle engine.
 
 No I/O, no database, no network. Just math and state transitions — so the same logic works in a Garmin-driven treadmill session, a Spotify playlist builder, or anything else that wants "pick the right tempo for this pulse."
 
-## Install
-
-```bash
-pip install run-dj
-```
-
-## Usage
-
-```python
-from run_dj import hrr_to_bpm, SessionState, interleaved_shuffle
-
-# HR → BPM using Karvonen %HRR (piecewise anchors + JND quantization).
-bpm = hrr_to_bpm(hr=150, hr_rest=60, hr_max=190)
-# → 132
-
-# Session-aware shuffle that avoids same-artist clustering.
-state = SessionState()
-ordered = interleaved_shuffle(candidate_songs, state)
-```
+## What it computes
 
 ### BPM formula
 - **Piecewise anchors** between 0% HRR (75 BPM) and 100% HRR (175 BPM), linearly interpolated.
