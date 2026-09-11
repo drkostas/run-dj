@@ -19,6 +19,10 @@ No I/O, no database, no network. Just math and state transitions — so the same
 - Partitions candidates by artist, then interleaves to maximize artist diversity.
 - Feels more random to humans than Fisher-Yates because it prevents the birthday-paradox clustering effect.
 
+### Genre buckets, ReccoBeats, Spotify
+
+`toMacroGenres(microGenres)` folds Spotify's micro-genres into the DJ's ten buckets. `fetchAudioFeatures(ids, { fetchImpl?, sleep? })` reads tempo, energy, valence and friends from ReccoBeats in batches of 40 with 429 back-off. `createSpotifyClient({ clientId, store })` is the Web API client with a cached token, refresh on expiry and one retry on 401; the consumer supplies a `SpotifyTokenStore` (where the tokens live is its business) and can inject `fetch` and the clock for tests.
+
 ## Install
 
 The same pure core is also published to npm (source in [`typescript/`](typescript/)) so it can run
