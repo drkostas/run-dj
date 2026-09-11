@@ -1,7 +1,7 @@
 {
   "name": "run-dj",
-  "version": "0.4.0",
-  "description": "Pure, I/O-free core of Soma's running DJ: HR-to-BPM formula, interleaved anti-clustering shuffle, segment-based playlist scoring, and the live queue decision.",
+  "version": "0.5.0",
+  "description": "Pure core of Soma's running DJ: HR-to-BPM formula, anti-clustering shuffle, playlist scoring, the live queue decision, genre buckets, and the ReccoBeats and Spotify clients over injectable I/O.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -24,6 +24,18 @@
     "./cycle": {
       "types": "./dist/cycle.d.ts",
       "default": "./dist/cycle.js"
+    },
+    "./genre": {
+      "types": "./dist/genre.d.ts",
+      "default": "./dist/genre.js"
+    },
+    "./reccobeats": {
+      "types": "./dist/reccobeats.d.ts",
+      "default": "./dist/reccobeats.js"
+    },
+    "./spotify": {
+      "types": "./dist/spotify.d.ts",
+      "default": "./dist/spotify.js"
     }
   },
   "files": [
