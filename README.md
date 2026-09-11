@@ -37,11 +37,11 @@ ordered = interleaved_shuffle(candidate_songs, state)
 - Partitions candidates by artist, then interleaves to maximize artist diversity.
 - Feels more random to humans than Fisher-Yates because it prevents the birthday-paradox clustering effect.
 
-## TypeScript / npm
+## Install
 
-The same pure core is also published to npm (source in [`ts/`](ts/)) so it can run
+The same pure core is also published to npm (source in [`typescript/`](typescript/)) so it can run
 in the browser, Node, or a Vercel cron alongside Soma's TypeScript stack. The
-Python (PyPI) and TypeScript (npm) packages are kept in behavioural parity.
+The Python original this was ported from was removed on 2026-09-11 (git history keeps it); the npm package is the product. Its tests carry the Python-parity goldens.
 
 ```bash
 npm install run-dj

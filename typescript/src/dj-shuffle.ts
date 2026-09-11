@@ -4,6 +4,21 @@
  * order is non-deterministic; the structural properties (artist spread,
  * first != last-played) are what matter. Used by the live DJ daemon (#187).
  */
+/** A random source in [0, 1). Injectable so a shuffle can be reproduced in a test. */
+export type Rng = () => number;
+
+/** mulberry32: a small seeded PRNG for reproducible shuffles (tests, replays). */
+export function mulberry32(seed: number): Rng {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 export type Song = Record<string, any>;
 
 /** Per-session exclusions + last-played context. Port of SessionState. */
@@ -30,7 +45,7 @@ function artistKey(song: Song): string {
  * within each, interleave largest-first, then rotate so the first song isn't the
  * last-played artist. Port of interleaved_shuffle.
  */
-export function interleavedShuffle(songs: Song[], state?: SessionState | null): Song[] {
+export function interleavedShuffle(songs: Song[], state?: SessionState | null, rng: Rng = Math.random): Song[] {
   if (!songs.length) return [];
 
   // 1. Partition by artist.
@@ -43,7 +58,7 @@ export function interleavedShuffle(songs: Song[], state?: SessionState | null): 
   // 2. Shuffle within each partition (Fisher-Yates), then reverse for O(1) pop from tail.
   for (const partition of byArtist.values()) {
     for (let i = partition.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = Math.floor(rng() * (i + 1));
       [partition[i], partition[j]] = [partition[j], partition[i]];
     }
     partition.reverse();

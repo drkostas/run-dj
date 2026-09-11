@@ -5,7 +5,7 @@
  * pick one from candidate tracks. The DB/Spotify/Garmin I/O and the rolling
  * history bookkeeping live in the consumer (soma's Vercel-Cron cycle).
  */
-import { SessionState, interleavedShuffle, type Song, type Rng } from "./shuffle";
+import { SessionState, interleavedShuffle, type Song, type Rng } from "./dj-shuffle";
 
 /** Python round() at ndigits=0: round-half-to-even, but only on an exact .5. */
 function pyRound(x: number): number {
