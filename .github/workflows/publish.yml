@@ -1,0 +1,67 @@
+name: publish
+
+# Publishes typescript/ to npm when the version in package.json moves past the registry, and tags
+# the commit, so a published version traces to a commit (soma-side ledger, 2026-09-13). Needs the
+# NPM_TOKEN secret (an npm automation token); until it exists the job says so and stops green.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "typescript/package.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: typescript
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install, build, test
+        run: |
+          npm ci
+          npm run build
+          npm test
+
+      - name: Is this version new to the registry?
+        id: version
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          LOCAL=$(node -p "require('./package.json').version")
+          REMOTE=$(npm view "$NAME" version 2>/dev/null || echo "none")
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          echo "local=$LOCAL" >> "$GITHUB_OUTPUT"
+          echo "remote=$REMOTE" >> "$GITHUB_OUTPUT"
+          if [ "$LOCAL" = "$REMOTE" ]; then echo "publish=no" >> "$GITHUB_OUTPUT"; echo "$NAME $LOCAL is already on the registry"; else echo "publish=yes" >> "$GITHUB_OUTPUT"; echo "$NAME $LOCAL is new (registry has $REMOTE)"; fi
+
+      - name: Publish
+        if: steps.version.outputs.publish == 'yes'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "::warning::NPM_TOKEN is not set in this repository's secrets; ${{ steps.version.outputs.name }} ${{ steps.version.outputs.local }} was not published"
+            exit 0
+          fi
+          npm publish --access public
+
+      - name: Tag the commit
+        if: steps.version.outputs.publish == 'yes'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          [ -n "$NODE_AUTH_TOKEN" ] || { echo "no publish, no tag"; exit 0; }
+          TAG="v${{ steps.version.outputs.local }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "$TAG" && git push origin "$TAG"
