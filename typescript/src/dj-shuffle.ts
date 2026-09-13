@@ -1,5 +1,5 @@
 /**
- * Interleaved partition shuffle — TS port of sync/src/shuffle.py. Spreads
+ * Interleaved partition shuffle. Ported from the Python soma once carried; this is the source now. Spreads
  * same-artist songs evenly (feels more random than Fisher-Yates). RNG-based, so
  * order is non-deterministic; the structural properties (artist spread,
  * first != last-played) are what matter. Used by the live DJ daemon (#187).

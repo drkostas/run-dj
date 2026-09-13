@@ -1,5 +1,5 @@
 /**
- * HR → music BPM formula — TS port of sync/src/bpm_formula.py. Piecewise-linear
+ * HR to music BPM formula. Ported from the Python soma once carried; this is the source now. Piecewise-linear
  * %HRR → target-BPM mapping (Karageorghis; Weber's 5-BPM JND). Pure. Used by the
  * live DJ daemon. Stage: sync cutover (#187).
  */
