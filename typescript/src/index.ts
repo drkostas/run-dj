@@ -20,3 +20,4 @@ export * from "./cycle";
 export * from "./genre";
 export * from "./reccobeats";
 export * from "./spotify";
+export * from "./segments";
