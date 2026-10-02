@@ -1,6 +1,6 @@
 {
   "name": "run-dj",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Pure core of Soma's running DJ: HR-to-BPM formula, anti-clustering shuffle, playlist scoring, the live queue decision, genre buckets, and the ReccoBeats and Spotify clients over injectable I/O.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -25,7 +25,7 @@ No I/O, no database, no network. Just math and state transitions — so the same
 
 ## Install
 
-The same pure core is also published to npm (source in [`typescript/`](typescript/)) so it can run
+The same pure core is also published to npm (source in [`typescript/`](https://github.com/drkostas/run-dj/tree/main/typescript)) so it can run
 in the browser, Node, or a Vercel cron alongside Soma's TypeScript stack.
 The Python original this was ported from was removed on 2026-09-11 (git history keeps it); the npm package is the product. Its tests carry the Python-parity goldens.
 
