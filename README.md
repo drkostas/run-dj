@@ -1,3 +1,5 @@
+![run-dj](docs/images/banner.png)
+
 # run-dj
 
 HR → music BPM mapping + session shuffle engine.
